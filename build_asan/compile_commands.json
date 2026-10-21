@@ -37,6 +37,12 @@
 },
 {
   "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -g -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -fsanitize=address,undefined -fno-omit-frame-pointer -o CMakeFiles/tensor_alloc_lib.dir/src/trace_recorder.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/src/trace_recorder.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/src/trace_recorder.cpp",
+  "output": "CMakeFiles/tensor_alloc_lib.dir/src/trace_recorder.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan",
   "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -g -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -fsanitize=address,undefined -fno-omit-frame-pointer -o CMakeFiles/tensor_alloc_lib.dir/src/api.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/src/api.cpp",
   "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/src/api.cpp",
   "output": "CMakeFiles/tensor_alloc_lib.dir/src/api.cpp.o"
@@ -82,5 +88,29 @@
   "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -g -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -fsanitize=address,undefined -fno-omit-frame-pointer -o CMakeFiles/test_multithreading.dir/tests/test_multithreading.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_multithreading.cpp",
   "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_multithreading.cpp",
   "output": "CMakeFiles/test_multithreading.dir/tests/test_multithreading.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -g -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -fsanitize=address,undefined -fno-omit-frame-pointer -o CMakeFiles/test_trace_recorder.dir/tests/test_trace_recorder.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_trace_recorder.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_trace_recorder.cpp",
+  "output": "CMakeFiles/test_trace_recorder.dir/tests/test_trace_recorder.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -g -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -fsanitize=address,undefined -fno-omit-frame-pointer -o CMakeFiles/allocator_microbench.dir/benchmarks/allocator_microbench.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/benchmarks/allocator_microbench.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/benchmarks/allocator_microbench.cpp",
+  "output": "CMakeFiles/allocator_microbench.dir/benchmarks/allocator_microbench.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -g -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -fsanitize=address,undefined -fno-omit-frame-pointer -o CMakeFiles/replay_trace.dir/benchmarks/replay_trace.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/benchmarks/replay_trace.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/benchmarks/replay_trace.cpp",
+  "output": "CMakeFiles/replay_trace.dir/benchmarks/replay_trace.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -g -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -fsanitize=address,undefined -fno-omit-frame-pointer -o CMakeFiles/basic_usage.dir/examples/basic_usage.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/examples/basic_usage.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/examples/basic_usage.cpp",
+  "output": "CMakeFiles/basic_usage.dir/examples/basic_usage.cpp.o"
 }
 ]

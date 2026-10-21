@@ -1,8 +1,10 @@
-test_size_class 3 0.00123943
-test_validation 3 0.000618889
-test_api 3 0.000705306
-test_alignment 3 0.00104247
-test_reuse 2 0.00124462
-test_invalid_inputs 3 0.000641014
-test_multithreading 3 0.00208351
+test_size_class 8 0.000208141
+test_validation 8 0.000180245
+test_api 8 0.000311146
+test_alignment 8 0.000277484
+test_reuse 7 0.000240316
+test_invalid_inputs 8 0.000265307
+test_multithreading 8 0.000566531
+test_trace_recorder 4 0.000567521
+test_trace_pipeline 2 0.115703
 ---

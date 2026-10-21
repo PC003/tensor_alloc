@@ -55,19 +55,33 @@ cmake --build build_release --parallel
 
 ## 4. Trace Replay Results
 
+### 4.1 Transformer Workload Replay (`traces/transformer_trace.jsonl`)
+- **Total Trace Events:** 720 events (360 allocations, 360 frees) across 2 runs
+- **System `malloc/free` Elapsed:** 2.27 ms (317,770 ops/sec)
+- **`tensor_alloc` Elapsed:** **0.20 ms (3,637,889 ops/sec)** — **11.4x faster**
+- **Pool Reuse Rate:** **92.22%** (332 / 360 allocations reused from warm pools)
+- **Peak Live Requested:** 173,015,040 B (~165.00 MB)
+- **Peak Live Reserved:** 230,686,720 B (~220.00 MB)
+
+### 4.2 ConvNet Workload Replay (`traces/convnet_trace.jsonl`)
+- **Total Trace Events:** 720 events (360 allocations, 360 frees) across 2 runs
+- **System `malloc/free` Elapsed:** 1.24 ms (579,282 ops/sec)
+- **`tensor_alloc` Elapsed:** **0.12 ms (5,785,084 ops/sec)** — **9.9x faster**
+- **Pool Reuse Rate:** **81.67%** (294 / 360 allocations reused from warm pools)
+- **Peak Live Requested:** 947,516,416 B (~903.62 MB)
+- **Peak Live Reserved:** 1,237,516,288 B (~1,180.19 MB)
+
+### 4.3 Large Synthetic Trace Replay (30,000 Operations)
 Run Command:
 ```bash
-./build_release/replay_trace 50000
+./build_release/replay_trace 30000
 ```
-
-- **Total Trace Events:** 60,392 events (30,196 allocations, 30,196 frees)
-- **Replay Duration:** 13.04 ms
-- **Replay Throughput:** **4,632,872 operations/second**
-- **Pool Reuse Count:** 19,799 allocations reused from pool (**65.57% reuse rate**)
-- **Allocation Failures:** 0
-- **Peak Live Requested:** 87,948,288 bytes (~83.87 MB)
-- **Peak Live Reserved:** 113,748,992 bytes (~108.48 MB)
-- **Predictor Fallbacks:** 0
+- **Total Events:** 36,196 events (18,098 allocations, 18,098 frees)
+- **System `malloc` Elapsed:** 13.87 ms (2.61M ops/sec)
+- **`tensor_alloc` Elapsed:** **5.08 ms (7.12M ops/sec)** — **2.7x faster**
+- **Pool Reuse Rate:** **65.69%** (11,888 / 18,098 allocations reused)
+- **Peak Live Requested:** 105,276,416 B (~100.40 MB)
+- **Peak Live Reserved:** 136,345,600 B (~130.03 MB)
 
 ---
 

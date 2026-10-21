@@ -154,6 +154,24 @@ void tensor_reset_metrics(void);
 void tensor_print_metrics(FILE* stream);
 
 /**
+ * Start recording allocation and free events to a JSONL trace file.
+ *
+ * @param filepath Path to output file (must not be NULL).
+ * @return TENSOR_STATUS_SUCCESS on success, or error status code.
+ */
+tensor_status_t tensor_trace_start(const char* filepath);
+
+/**
+ * Stop active trace recording and flush pending records to disk.
+ */
+tensor_status_t tensor_trace_stop(void);
+
+/**
+ * Check if trace recording is currently active.
+ */
+bool tensor_trace_is_active(void);
+
+/**
  * Clean up all allocated memory pools and clear internal registries.
  * Typically called at program termination or before running test suites.
  */

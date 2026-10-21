@@ -2,14 +2,15 @@
 
 `tensor_alloc` is a high-performance, userspace memory allocator designed specifically for tensor and machine learning computation workloads. Rather than treating memory requests as opaque byte counts, `tensor_alloc` accepts structured tensor metadata (dimensions, rank, strides, data type, device, lifetime hint, and authoritative byte count), enabling fine-grained size-classing, 64-byte vector alignment, userspace pool reuse, and comprehensive memory metrics tracking.
 
-## Current Milestone Status: Phase 1 (CPU MVP)
+## Current Milestone Status: Phase 1 & Phase 2 Complete
 
 - **Platform:** macOS (Apple Silicon arm64) and POSIX-compliant systems.
 - **Backend:** CPU-only (`TENSOR_DEVICE_CPU`). Guaranteed 64-byte alignment (`TENSOR_ALLOC_ALIGNMENT`).
 - **Policy:** Deterministic power-of-two size class baseline (21 pools from 64 B to 64 MB) plus aligned large-allocation path.
 - **Safety:** Explicit metadata validation, integer overflow protection, allocation ownership registry, and double-free detection.
-- **Metrics:** Thread-safe tracking of requested vs. reserved memory, internal waste ratios, peak watermarks, and pool reuse rates.
-- **Testing:** 100% passing test suite across Debug, Release, and AddressSanitizer/UndefinedBehaviorSanitizer builds.
+- **Metrics & Tracing:** Thread-safe metrics tracking, peak watermarks, and runtime JSONL event recording (`tensor_trace_start` / `tensor_trace_stop`).
+- **Trace Pipeline:** Python multi-workload trace generator (Transformer, ConvNet, Mixed), multidimensional trace analyzer, and split-by-run label generator for ML training.
+- **Testing:** 100% passing test suite across 9 test targets in Debug, Release, and AddressSanitizer/UndefinedBehaviorSanitizer builds.
 
 ---
 

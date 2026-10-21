@@ -5,6 +5,7 @@
 #include "cpu_backend.h"
 #include "allocation_registry.h"
 #include "metrics.h"
+#include "trace_recorder.h"
 #include <atomic>
 
 static std::atomic<uint64_t> g_sequence_id(1);
@@ -77,7 +78,10 @@ tensor_status_t tensor_malloc(const tensor_alloc_request_t* req, void** out_ptr)
     // 5. Update metrics
     metrics_record_alloc(req->requested_bytes, capacity, reused, used_fallback);
 
-    // 6. Return aligned memory pointer
+    // 6. Record trace event if tracing is active
+    trace_record_alloc(record.sequence_id, req, size_class, capacity);
+
+    // 7. Return aligned memory pointer
     *out_ptr = mem;
     return TENSOR_STATUS_SUCCESS;
 }
@@ -102,7 +106,22 @@ tensor_status_t tensor_free(void* ptr) {
     // 3. Record metrics
     metrics_record_free(record.requested_bytes, record.reserved_bytes);
 
+    // 4. Record trace event if tracing is active
+    trace_record_free(record.sequence_id);
+
     return status;
+}
+
+tensor_status_t tensor_trace_start(const char* filepath) {
+    return trace_recorder_start(filepath);
+}
+
+tensor_status_t tensor_trace_stop(void) {
+    return trace_recorder_stop();
+}
+
+bool tensor_trace_is_active(void) {
+    return trace_recorder_is_active();
 }
 
 tensor_metrics_snapshot_t tensor_get_metrics(void) {
@@ -118,6 +137,7 @@ void tensor_print_metrics(FILE* stream) {
 }
 
 void tensor_shutdown(void) {
+    trace_recorder_stop();
     cpu_backend_destroy();
     registry_clear();
     metrics_reset();

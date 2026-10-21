@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -fsanitize=address,undefined CMakeFiles/allocator_microbench.dir/benchmarks/allocator_microbench.cpp.o -o allocator_microbench  libtensor_alloc_lib.a

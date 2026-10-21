@@ -15,6 +15,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/piyushajitchavan/Desktop/tensor_alloc/src/predictor_fallback.cpp" "CMakeFiles/tensor_alloc_lib.dir/src/predictor_fallback.cpp.o" "gcc" "CMakeFiles/tensor_alloc_lib.dir/src/predictor_fallback.cpp.o.d"
   "/Users/piyushajitchavan/Desktop/tensor_alloc/src/request_validation.cpp" "CMakeFiles/tensor_alloc_lib.dir/src/request_validation.cpp.o" "gcc" "CMakeFiles/tensor_alloc_lib.dir/src/request_validation.cpp.o.d"
   "/Users/piyushajitchavan/Desktop/tensor_alloc/src/size_class.cpp" "CMakeFiles/tensor_alloc_lib.dir/src/size_class.cpp.o" "gcc" "CMakeFiles/tensor_alloc_lib.dir/src/size_class.cpp.o.d"
+  "/Users/piyushajitchavan/Desktop/tensor_alloc/src/trace_recorder.cpp" "CMakeFiles/tensor_alloc_lib.dir/src/trace_recorder.cpp.o" "gcc" "CMakeFiles/tensor_alloc_lib.dir/src/trace_recorder.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

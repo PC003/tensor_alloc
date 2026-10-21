@@ -76,6 +76,7 @@ CMakeFiles/tensor_alloc_lib.dir/src/api.cpp.o: \
   /Users/piyushajitchavan/Desktop/tensor_alloc/src/cpu_backend.h \
   /Users/piyushajitchavan/Desktop/tensor_alloc/src/allocation_registry.h \
   /Users/piyushajitchavan/Desktop/tensor_alloc/src/metrics.h \
+  /Users/piyushajitchavan/Desktop/tensor_alloc/src/trace_recorder.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/atomic \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__atomic/aliases.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__atomic/atomic.h \

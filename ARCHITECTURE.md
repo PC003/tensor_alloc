@@ -1,6 +1,6 @@
 # tensor_alloc — System Architecture and Codebase Specification
 
-> **Milestone Status:** Phase 1 (CPU MVP) Complete and Fully Tested.
+> **Milestone Status:** Phase 1 (CPU MVP) and Phase 2 (Trace Collection, Analysis & Labeling Pipeline) Complete and Tested.
 
 ---
 
@@ -99,9 +99,9 @@ tensor_alloc/
 ├── ARCHITECTURE.md                # System architecture, file map, API contracts
 ├── TENSOR_ALLOC_CODING_PROMPT.md  # Core project requirements and design intent
 ├── include/
-│   └── tensor_alloc.h             # Stable C-compatible public API declarations
+│   └── tensor_alloc.h             # Stable C-compatible public API declarations (malloc, free, trace)
 ├── src/
-│   ├── api.cpp                    # Public API orchestration (tensor_malloc, tensor_free, metrics)
+│   ├── api.cpp                    # Public API orchestration (tensor_malloc, tensor_free, metrics, trace)
 │   ├── request_validation.h       # Validation declarations & overflow helpers
 │   ├── request_validation.cpp     # Request metadata verification & arithmetic overflow checks
 │   ├── size_class.h               # Size class definitions (21 power-of-two classes, large path)
@@ -112,6 +112,8 @@ tensor_alloc/
 │   ├── allocation_registry.cpp    # Live pointer tracking, double-free FIFO history, thread locking
 │   ├── metrics.h                  # Metrics tracking hooks and snapshot declarations
 │   ├── metrics.cpp                # Thread-safe counter updates, peak tracking, ratios, summaries
+│   ├── trace_recorder.h           # Runtime trace recording declarations
+│   ├── trace_recorder.cpp         # High-resolution JSONL event logging for allocations and frees
 │   ├── predictor_interface.h      # IPredictor abstract interface & safe validation wrapper
 │   └── predictor_fallback.cpp     # Deterministic baseline predictor implementation
 ├── tests/
@@ -122,15 +124,21 @@ tensor_alloc/
 │   ├── test_alignment.cpp         # 64-byte alignment verification across size classes
 │   ├── test_reuse.cpp             # Free-list pool reuse verification & reuse counter checks
 │   ├── test_invalid_inputs.cpp    # Double-free, unknown pointer, zero-byte, CUDA rejection
-│   └── test_multithreading.cpp    # Concurrent thread-safety stress test across 8 threads
+│   ├── test_multithreading.cpp    # Concurrent thread-safety stress test across 8 threads
+│   ├── test_trace_recorder.cpp    # Verification of C++ runtime trace recording
+│   └── test_trace_pipeline.py     # End-to-end Python pipeline test (collect, analyze, replay, label)
 ├── benchmarks/
 │   ├── allocator_microbench.cpp   # Microbenchmark comparing sys_malloc vs tensor_alloc
-│   └── replay_trace.cpp           # JSONL trace replay benchmark harness
+│   └── replay_trace.cpp           # JSONL trace replay benchmark harness with sys_malloc comparison
 ├── python/
-│   ├── collect_trace.py           # Synthetic workload trace generator emitting versioned JSONL
-│   └── analyze_trace.py           # Trace analyzer computing size distributions, waste, lifetimes
+│   ├── collect_trace.py           # Multi-workload trace generator (Transformer, ConvNet, Mixed; JSONL/CSV)
+│   ├── analyze_trace.py           # Multi-metric trace analyzer (percentiles, concurrency, waste, comparison)
+│   └── build_labels.py            # Feature extractor and objective labeler with split-by-run partitioning
 ├── traces/
-│   └── README.md                  # Trace schema documentation (v1.0.0) and semantics
+│   ├── README.md                  # Trace schema documentation (v1.1.0) and semantics
+│   ├── transformer_trace.jsonl    # Transformer model step allocation trace
+│   ├── convnet_trace.jsonl        # ConvNet multi-stage allocation trace
+│   └── labeled_dataset.json       # Labeled ML dataset partitioned by run_id
 ├── models/
 │   └── README.md                  # Model artifact placeholder and Phase 3 roadmap
 ├── examples/

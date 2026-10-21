@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -fsanitize=address,undefined CMakeFiles/replay_trace.dir/benchmarks/replay_trace.cpp.o -o replay_trace  libtensor_alloc_lib.a

@@ -231,6 +231,19 @@ test_multithreading/fast:
 .PHONY : test_multithreading/fast
 
 #=============================================================================
+# Target rules for targets named test_trace_recorder
+
+# Build rule for target.
+test_trace_recorder: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_trace_recorder
+.PHONY : test_trace_recorder
+
+# fast build rule for target.
+test_trace_recorder/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace_recorder.dir/build.make CMakeFiles/test_trace_recorder.dir/build
+.PHONY : test_trace_recorder/fast
+
+#=============================================================================
 # Target rules for targets named allocator_microbench
 
 # Build rule for target.
@@ -509,6 +522,30 @@ src/size_class.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tensor_alloc_lib.dir/build.make CMakeFiles/tensor_alloc_lib.dir/src/size_class.cpp.s
 .PHONY : src/size_class.cpp.s
 
+src/trace_recorder.o: src/trace_recorder.cpp.o
+.PHONY : src/trace_recorder.o
+
+# target to build an object file
+src/trace_recorder.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tensor_alloc_lib.dir/build.make CMakeFiles/tensor_alloc_lib.dir/src/trace_recorder.cpp.o
+.PHONY : src/trace_recorder.cpp.o
+
+src/trace_recorder.i: src/trace_recorder.cpp.i
+.PHONY : src/trace_recorder.i
+
+# target to preprocess a source file
+src/trace_recorder.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tensor_alloc_lib.dir/build.make CMakeFiles/tensor_alloc_lib.dir/src/trace_recorder.cpp.i
+.PHONY : src/trace_recorder.cpp.i
+
+src/trace_recorder.s: src/trace_recorder.cpp.s
+.PHONY : src/trace_recorder.s
+
+# target to generate assembly for a file
+src/trace_recorder.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tensor_alloc_lib.dir/build.make CMakeFiles/tensor_alloc_lib.dir/src/trace_recorder.cpp.s
+.PHONY : src/trace_recorder.cpp.s
+
 tests/test_alignment.o: tests/test_alignment.cpp.o
 .PHONY : tests/test_alignment.o
 
@@ -653,6 +690,30 @@ tests/test_size_class.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_size_class.dir/build.make CMakeFiles/test_size_class.dir/tests/test_size_class.cpp.s
 .PHONY : tests/test_size_class.cpp.s
 
+tests/test_trace_recorder.o: tests/test_trace_recorder.cpp.o
+.PHONY : tests/test_trace_recorder.o
+
+# target to build an object file
+tests/test_trace_recorder.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace_recorder.dir/build.make CMakeFiles/test_trace_recorder.dir/tests/test_trace_recorder.cpp.o
+.PHONY : tests/test_trace_recorder.cpp.o
+
+tests/test_trace_recorder.i: tests/test_trace_recorder.cpp.i
+.PHONY : tests/test_trace_recorder.i
+
+# target to preprocess a source file
+tests/test_trace_recorder.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace_recorder.dir/build.make CMakeFiles/test_trace_recorder.dir/tests/test_trace_recorder.cpp.i
+.PHONY : tests/test_trace_recorder.cpp.i
+
+tests/test_trace_recorder.s: tests/test_trace_recorder.cpp.s
+.PHONY : tests/test_trace_recorder.s
+
+# target to generate assembly for a file
+tests/test_trace_recorder.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace_recorder.dir/build.make CMakeFiles/test_trace_recorder.dir/tests/test_trace_recorder.cpp.s
+.PHONY : tests/test_trace_recorder.cpp.s
+
 tests/test_validation.o: tests/test_validation.cpp.o
 .PHONY : tests/test_validation.o
 
@@ -696,6 +757,7 @@ help:
 	@echo "... test_multithreading"
 	@echo "... test_reuse"
 	@echo "... test_size_class"
+	@echo "... test_trace_recorder"
 	@echo "... test_validation"
 	@echo "... benchmarks/allocator_microbench.o"
 	@echo "... benchmarks/allocator_microbench.i"
@@ -727,6 +789,9 @@ help:
 	@echo "... src/size_class.o"
 	@echo "... src/size_class.i"
 	@echo "... src/size_class.s"
+	@echo "... src/trace_recorder.o"
+	@echo "... src/trace_recorder.i"
+	@echo "... src/trace_recorder.s"
 	@echo "... tests/test_alignment.o"
 	@echo "... tests/test_alignment.i"
 	@echo "... tests/test_alignment.s"
@@ -745,6 +810,9 @@ help:
 	@echo "... tests/test_size_class.o"
 	@echo "... tests/test_size_class.i"
 	@echo "... tests/test_size_class.s"
+	@echo "... tests/test_trace_recorder.o"
+	@echo "... tests/test_trace_recorder.i"
+	@echo "... tests/test_trace_recorder.s"
 	@echo "... tests/test_validation.o"
 	@echo "... tests/test_validation.i"
 	@echo "... tests/test_validation.s"

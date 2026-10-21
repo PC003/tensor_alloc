@@ -10,10 +10,12 @@ This document records the design constraints, unimplemented features, and known 
   Only `TENSOR_DEVICE_CPU` is currently supported. Allocations requesting `TENSOR_DEVICE_CUDA` are rejected immediately with `TENSOR_STATUS_UNSUPPORTED_DEVICE`. CUDA stream synchronization, device pointer ownership, and unified memory semantics are deferred to Phase 5.
 - **Custom C API vs. Framework Integration:**
   `tensor_alloc` exposes a standalone C-compatible API (`tensor_malloc`, `tensor_free`). It is **not** a drop-in replacement for PyTorch's native allocator (`c10::cuda::CUDACachingAllocator` or default CPU allocator). Integrating into PyTorch's pluggable allocator interface requires custom PyTorch C++ bindings and is deferred.
-- **Deterministic Size Classes (No Learned Predictor in MVP):**
+- **Phase 2 Complete (Trace Pipeline & Labeling):**
+  Versioned trace collection (`collect_trace.py`), runtime C++ tracing (`tensor_trace_start`), multidimensional analysis (`analyze_trace.py`), and split-by-run labeling (`build_labels.py`) are fully implemented and verified.
+- **Deterministic Size Classes (No Learned Predictor in MVP / Phase 2):**
   Size classes are determined by a deterministic power-of-two baseline (`src/predictor_fallback.cpp`). The predictor interface (`src/predictor_interface.h`) is active and validated with safety fallback, but the machine-learned predictor, dataset curation, and ONNX inference are deferred to Phase 3.
 - **No Online Bandit:**
-  LinUCB online adaptation is not implemented in Phase 1. It requires validated offline model rewards and reproducible logging before being introduced.
+  LinUCB online adaptation is not implemented. It requires validated offline model rewards and reproducible logging before being introduced (Phase 4).
 
 ---
 

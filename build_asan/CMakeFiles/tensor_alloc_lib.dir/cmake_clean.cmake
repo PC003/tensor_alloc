@@ -13,6 +13,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/tensor_alloc_lib.dir/src/request_validation.cpp.o.d"
   "CMakeFiles/tensor_alloc_lib.dir/src/size_class.cpp.o"
   "CMakeFiles/tensor_alloc_lib.dir/src/size_class.cpp.o.d"
+  "CMakeFiles/tensor_alloc_lib.dir/src/trace_recorder.cpp.o"
+  "CMakeFiles/tensor_alloc_lib.dir/src/trace_recorder.cpp.o.d"
   "libtensor_alloc_lib.a"
   "libtensor_alloc_lib.pdb"
 )

@@ -63,6 +63,19 @@ This document defines the metrics collected, calculated, and reported by `tensor
 - **Predictor Fallback Count (`fallback_count`)**:
   Number of times an active predictor recommended an invalid size class, out-of-range class, or a class with capacity smaller than `requested_bytes`, triggering the safe deterministic fallback.
 
+### 1.5 Temporal Concurrency and Trace Metrics
+
+- **Instantaneous Active Count ($N_{\text{active}}(t)$)**:
+  Number of allocations that have been issued at or before timestamp $t$ and not yet freed:
+  $$N_{\text{active}}(t) = |\{ a \mid t_{\text{alloc}}(a) \le t < t_{\text{free}}(a) \}|$$
+
+- **Peak Concurrency ($N_{\text{peak}}$)**:
+  $$N_{\text{peak}} = \max_{t} N_{\text{active}}(t)$$
+
+- **Buffer Lifetime ($\Delta t(a)$)**:
+  $$\Delta t(a) = t_{\text{free}}(a) - t_{\text{alloc}}(a)$$
+  Measured in nanoseconds in raw traces, reported in milliseconds during analysis. Temporary activation buffers typically exhibit $\Delta t \le 1.0\text{ ms}$, whereas persistent weight buffers span the entire run duration.
+
 ---
 
 ## 2. Measurement Boundaries and Overhead

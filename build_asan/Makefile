@@ -230,6 +230,130 @@ test_multithreading/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_multithreading.dir/build.make CMakeFiles/test_multithreading.dir/build
 .PHONY : test_multithreading/fast
 
+#=============================================================================
+# Target rules for targets named test_trace_recorder
+
+# Build rule for target.
+test_trace_recorder: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_trace_recorder
+.PHONY : test_trace_recorder
+
+# fast build rule for target.
+test_trace_recorder/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace_recorder.dir/build.make CMakeFiles/test_trace_recorder.dir/build
+.PHONY : test_trace_recorder/fast
+
+#=============================================================================
+# Target rules for targets named allocator_microbench
+
+# Build rule for target.
+allocator_microbench: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 allocator_microbench
+.PHONY : allocator_microbench
+
+# fast build rule for target.
+allocator_microbench/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/allocator_microbench.dir/build.make CMakeFiles/allocator_microbench.dir/build
+.PHONY : allocator_microbench/fast
+
+#=============================================================================
+# Target rules for targets named replay_trace
+
+# Build rule for target.
+replay_trace: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 replay_trace
+.PHONY : replay_trace
+
+# fast build rule for target.
+replay_trace/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/replay_trace.dir/build.make CMakeFiles/replay_trace.dir/build
+.PHONY : replay_trace/fast
+
+#=============================================================================
+# Target rules for targets named basic_usage
+
+# Build rule for target.
+basic_usage: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 basic_usage
+.PHONY : basic_usage
+
+# fast build rule for target.
+basic_usage/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/basic_usage.dir/build.make CMakeFiles/basic_usage.dir/build
+.PHONY : basic_usage/fast
+
+benchmarks/allocator_microbench.o: benchmarks/allocator_microbench.cpp.o
+.PHONY : benchmarks/allocator_microbench.o
+
+# target to build an object file
+benchmarks/allocator_microbench.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/allocator_microbench.dir/build.make CMakeFiles/allocator_microbench.dir/benchmarks/allocator_microbench.cpp.o
+.PHONY : benchmarks/allocator_microbench.cpp.o
+
+benchmarks/allocator_microbench.i: benchmarks/allocator_microbench.cpp.i
+.PHONY : benchmarks/allocator_microbench.i
+
+# target to preprocess a source file
+benchmarks/allocator_microbench.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/allocator_microbench.dir/build.make CMakeFiles/allocator_microbench.dir/benchmarks/allocator_microbench.cpp.i
+.PHONY : benchmarks/allocator_microbench.cpp.i
+
+benchmarks/allocator_microbench.s: benchmarks/allocator_microbench.cpp.s
+.PHONY : benchmarks/allocator_microbench.s
+
+# target to generate assembly for a file
+benchmarks/allocator_microbench.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/allocator_microbench.dir/build.make CMakeFiles/allocator_microbench.dir/benchmarks/allocator_microbench.cpp.s
+.PHONY : benchmarks/allocator_microbench.cpp.s
+
+benchmarks/replay_trace.o: benchmarks/replay_trace.cpp.o
+.PHONY : benchmarks/replay_trace.o
+
+# target to build an object file
+benchmarks/replay_trace.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/replay_trace.dir/build.make CMakeFiles/replay_trace.dir/benchmarks/replay_trace.cpp.o
+.PHONY : benchmarks/replay_trace.cpp.o
+
+benchmarks/replay_trace.i: benchmarks/replay_trace.cpp.i
+.PHONY : benchmarks/replay_trace.i
+
+# target to preprocess a source file
+benchmarks/replay_trace.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/replay_trace.dir/build.make CMakeFiles/replay_trace.dir/benchmarks/replay_trace.cpp.i
+.PHONY : benchmarks/replay_trace.cpp.i
+
+benchmarks/replay_trace.s: benchmarks/replay_trace.cpp.s
+.PHONY : benchmarks/replay_trace.s
+
+# target to generate assembly for a file
+benchmarks/replay_trace.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/replay_trace.dir/build.make CMakeFiles/replay_trace.dir/benchmarks/replay_trace.cpp.s
+.PHONY : benchmarks/replay_trace.cpp.s
+
+examples/basic_usage.o: examples/basic_usage.cpp.o
+.PHONY : examples/basic_usage.o
+
+# target to build an object file
+examples/basic_usage.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/basic_usage.dir/build.make CMakeFiles/basic_usage.dir/examples/basic_usage.cpp.o
+.PHONY : examples/basic_usage.cpp.o
+
+examples/basic_usage.i: examples/basic_usage.cpp.i
+.PHONY : examples/basic_usage.i
+
+# target to preprocess a source file
+examples/basic_usage.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/basic_usage.dir/build.make CMakeFiles/basic_usage.dir/examples/basic_usage.cpp.i
+.PHONY : examples/basic_usage.cpp.i
+
+examples/basic_usage.s: examples/basic_usage.cpp.s
+.PHONY : examples/basic_usage.s
+
+# target to generate assembly for a file
+examples/basic_usage.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/basic_usage.dir/build.make CMakeFiles/basic_usage.dir/examples/basic_usage.cpp.s
+.PHONY : examples/basic_usage.cpp.s
+
 src/allocation_registry.o: src/allocation_registry.cpp.o
 .PHONY : src/allocation_registry.o
 
@@ -398,6 +522,30 @@ src/size_class.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tensor_alloc_lib.dir/build.make CMakeFiles/tensor_alloc_lib.dir/src/size_class.cpp.s
 .PHONY : src/size_class.cpp.s
 
+src/trace_recorder.o: src/trace_recorder.cpp.o
+.PHONY : src/trace_recorder.o
+
+# target to build an object file
+src/trace_recorder.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tensor_alloc_lib.dir/build.make CMakeFiles/tensor_alloc_lib.dir/src/trace_recorder.cpp.o
+.PHONY : src/trace_recorder.cpp.o
+
+src/trace_recorder.i: src/trace_recorder.cpp.i
+.PHONY : src/trace_recorder.i
+
+# target to preprocess a source file
+src/trace_recorder.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tensor_alloc_lib.dir/build.make CMakeFiles/tensor_alloc_lib.dir/src/trace_recorder.cpp.i
+.PHONY : src/trace_recorder.cpp.i
+
+src/trace_recorder.s: src/trace_recorder.cpp.s
+.PHONY : src/trace_recorder.s
+
+# target to generate assembly for a file
+src/trace_recorder.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tensor_alloc_lib.dir/build.make CMakeFiles/tensor_alloc_lib.dir/src/trace_recorder.cpp.s
+.PHONY : src/trace_recorder.cpp.s
+
 tests/test_alignment.o: tests/test_alignment.cpp.o
 .PHONY : tests/test_alignment.o
 
@@ -542,6 +690,30 @@ tests/test_size_class.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_size_class.dir/build.make CMakeFiles/test_size_class.dir/tests/test_size_class.cpp.s
 .PHONY : tests/test_size_class.cpp.s
 
+tests/test_trace_recorder.o: tests/test_trace_recorder.cpp.o
+.PHONY : tests/test_trace_recorder.o
+
+# target to build an object file
+tests/test_trace_recorder.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace_recorder.dir/build.make CMakeFiles/test_trace_recorder.dir/tests/test_trace_recorder.cpp.o
+.PHONY : tests/test_trace_recorder.cpp.o
+
+tests/test_trace_recorder.i: tests/test_trace_recorder.cpp.i
+.PHONY : tests/test_trace_recorder.i
+
+# target to preprocess a source file
+tests/test_trace_recorder.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace_recorder.dir/build.make CMakeFiles/test_trace_recorder.dir/tests/test_trace_recorder.cpp.i
+.PHONY : tests/test_trace_recorder.cpp.i
+
+tests/test_trace_recorder.s: tests/test_trace_recorder.cpp.s
+.PHONY : tests/test_trace_recorder.s
+
+# target to generate assembly for a file
+tests/test_trace_recorder.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_trace_recorder.dir/build.make CMakeFiles/test_trace_recorder.dir/tests/test_trace_recorder.cpp.s
+.PHONY : tests/test_trace_recorder.cpp.s
+
 tests/test_validation.o: tests/test_validation.cpp.o
 .PHONY : tests/test_validation.o
 
@@ -575,6 +747,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... allocator_microbench"
+	@echo "... basic_usage"
+	@echo "... replay_trace"
 	@echo "... tensor_alloc_lib"
 	@echo "... test_alignment"
 	@echo "... test_api"
@@ -582,7 +757,17 @@ help:
 	@echo "... test_multithreading"
 	@echo "... test_reuse"
 	@echo "... test_size_class"
+	@echo "... test_trace_recorder"
 	@echo "... test_validation"
+	@echo "... benchmarks/allocator_microbench.o"
+	@echo "... benchmarks/allocator_microbench.i"
+	@echo "... benchmarks/allocator_microbench.s"
+	@echo "... benchmarks/replay_trace.o"
+	@echo "... benchmarks/replay_trace.i"
+	@echo "... benchmarks/replay_trace.s"
+	@echo "... examples/basic_usage.o"
+	@echo "... examples/basic_usage.i"
+	@echo "... examples/basic_usage.s"
 	@echo "... src/allocation_registry.o"
 	@echo "... src/allocation_registry.i"
 	@echo "... src/allocation_registry.s"
@@ -604,6 +789,9 @@ help:
 	@echo "... src/size_class.o"
 	@echo "... src/size_class.i"
 	@echo "... src/size_class.s"
+	@echo "... src/trace_recorder.o"
+	@echo "... src/trace_recorder.i"
+	@echo "... src/trace_recorder.s"
 	@echo "... tests/test_alignment.o"
 	@echo "... tests/test_alignment.i"
 	@echo "... tests/test_alignment.s"
@@ -622,6 +810,9 @@ help:
 	@echo "... tests/test_size_class.o"
 	@echo "... tests/test_size_class.i"
 	@echo "... tests/test_size_class.s"
+	@echo "... tests/test_trace_recorder.o"
+	@echo "... tests/test_trace_recorder.i"
+	@echo "... tests/test_trace_recorder.s"
 	@echo "... tests/test_validation.o"
 	@echo "... tests/test_validation.i"
 	@echo "... tests/test_validation.s"
