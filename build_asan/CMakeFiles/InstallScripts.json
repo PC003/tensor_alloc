@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

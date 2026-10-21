@@ -1,0 +1,104 @@
+[
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_release",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -O3 -DNDEBUG -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/tensor_alloc_lib.dir/src/request_validation.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/src/request_validation.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/src/request_validation.cpp",
+  "output": "CMakeFiles/tensor_alloc_lib.dir/src/request_validation.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_release",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -O3 -DNDEBUG -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/tensor_alloc_lib.dir/src/size_class.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/src/size_class.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/src/size_class.cpp",
+  "output": "CMakeFiles/tensor_alloc_lib.dir/src/size_class.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_release",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -O3 -DNDEBUG -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/tensor_alloc_lib.dir/src/predictor_fallback.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/src/predictor_fallback.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/src/predictor_fallback.cpp",
+  "output": "CMakeFiles/tensor_alloc_lib.dir/src/predictor_fallback.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_release",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -O3 -DNDEBUG -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/tensor_alloc_lib.dir/src/metrics.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/src/metrics.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/src/metrics.cpp",
+  "output": "CMakeFiles/tensor_alloc_lib.dir/src/metrics.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_release",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -O3 -DNDEBUG -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/tensor_alloc_lib.dir/src/allocation_registry.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/src/allocation_registry.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/src/allocation_registry.cpp",
+  "output": "CMakeFiles/tensor_alloc_lib.dir/src/allocation_registry.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_release",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -O3 -DNDEBUG -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/tensor_alloc_lib.dir/src/cpu_backend.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/src/cpu_backend.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/src/cpu_backend.cpp",
+  "output": "CMakeFiles/tensor_alloc_lib.dir/src/cpu_backend.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_release",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -O3 -DNDEBUG -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/tensor_alloc_lib.dir/src/api.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/src/api.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/src/api.cpp",
+  "output": "CMakeFiles/tensor_alloc_lib.dir/src/api.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_release",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -O3 -DNDEBUG -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_size_class.dir/tests/test_size_class.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_size_class.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_size_class.cpp",
+  "output": "CMakeFiles/test_size_class.dir/tests/test_size_class.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_release",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -O3 -DNDEBUG -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_validation.dir/tests/test_validation.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_validation.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_validation.cpp",
+  "output": "CMakeFiles/test_validation.dir/tests/test_validation.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_release",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -O3 -DNDEBUG -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_api.dir/tests/test_api.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_api.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_api.cpp",
+  "output": "CMakeFiles/test_api.dir/tests/test_api.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_release",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -O3 -DNDEBUG -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_alignment.dir/tests/test_alignment.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_alignment.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_alignment.cpp",
+  "output": "CMakeFiles/test_alignment.dir/tests/test_alignment.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_release",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -O3 -DNDEBUG -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_reuse.dir/tests/test_reuse.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_reuse.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_reuse.cpp",
+  "output": "CMakeFiles/test_reuse.dir/tests/test_reuse.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_release",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -O3 -DNDEBUG -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_invalid_inputs.dir/tests/test_invalid_inputs.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_invalid_inputs.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_invalid_inputs.cpp",
+  "output": "CMakeFiles/test_invalid_inputs.dir/tests/test_invalid_inputs.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_release",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -O3 -DNDEBUG -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/test_multithreading.dir/tests/test_multithreading.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_multithreading.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_multithreading.cpp",
+  "output": "CMakeFiles/test_multithreading.dir/tests/test_multithreading.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_release",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -O3 -DNDEBUG -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/allocator_microbench.dir/benchmarks/allocator_microbench.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/benchmarks/allocator_microbench.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/benchmarks/allocator_microbench.cpp",
+  "output": "CMakeFiles/allocator_microbench.dir/benchmarks/allocator_microbench.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_release",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -O3 -DNDEBUG -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/replay_trace.dir/benchmarks/replay_trace.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/benchmarks/replay_trace.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/benchmarks/replay_trace.cpp",
+  "output": "CMakeFiles/replay_trace.dir/benchmarks/replay_trace.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_release",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -O3 -DNDEBUG -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -o CMakeFiles/basic_usage.dir/examples/basic_usage.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/examples/basic_usage.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/examples/basic_usage.cpp",
+  "output": "CMakeFiles/basic_usage.dir/examples/basic_usage.cpp.o"
+}
+]

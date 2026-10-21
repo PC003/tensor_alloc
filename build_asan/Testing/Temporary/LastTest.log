@@ -1,0 +1,126 @@
+Start testing: Oct 21 10:38 IST
+----------------------------------------------------------
+1/7 Testing: test_size_class
+1/7 Test: test_size_class
+Command: "/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/test_size_class"
+Directory: /Users/piyushajitchavan/Desktop/tensor_alloc/build_asan
+"test_size_class" start time: Oct 21 10:38 IST
+Output:
+----------------------------------------------------------
+[test_size_class] Starting size class tests...
+[test_size_class] All size class and fallback tests passed!
+<end of output>
+Test time =   0.08 sec
+----------------------------------------------------------
+Test Passed.
+"test_size_class" end time: Oct 21 10:38 IST
+"test_size_class" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/7 Testing: test_validation
+2/7 Test: test_validation
+Command: "/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/test_validation"
+Directory: /Users/piyushajitchavan/Desktop/tensor_alloc/build_asan
+"test_validation" start time: Oct 21 10:38 IST
+Output:
+----------------------------------------------------------
+/Users/piyushajitchavan/Desktop/tensor_alloc/src/request_validation.cpp:62:47: runtime error: load of value 999, which is not a valid value for type 'tensor_dtype_t'
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior /Users/piyushajitchavan/Desktop/tensor_alloc/src/request_validation.cpp:62:47 
+/Users/piyushajitchavan/Desktop/tensor_alloc/src/request_validation.cpp:25:13: runtime error: load of value 999, which is not a valid value for type 'tensor_dtype_t'
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior /Users/piyushajitchavan/Desktop/tensor_alloc/src/request_validation.cpp:25:13 
+[test_validation] Starting validation tests...
+[test_validation] All validation tests passed!
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"test_validation" end time: Oct 21 10:38 IST
+"test_validation" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/7 Testing: test_api
+3/7 Test: test_api
+Command: "/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/test_api"
+Directory: /Users/piyushajitchavan/Desktop/tensor_alloc/build_asan
+"test_api" start time: Oct 21 10:38 IST
+Output:
+----------------------------------------------------------
+[test_api] Starting public API tests...
+[test_api] All public API tests passed!
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"test_api" end time: Oct 21 10:38 IST
+"test_api" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/7 Testing: test_alignment
+4/7 Test: test_alignment
+Command: "/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/test_alignment"
+Directory: /Users/piyushajitchavan/Desktop/tensor_alloc/build_asan
+"test_alignment" start time: Oct 21 10:38 IST
+Output:
+----------------------------------------------------------
+[test_alignment] Starting alignment tests...
+[test_alignment] All alignment tests passed!
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"test_alignment" end time: Oct 21 10:38 IST
+"test_alignment" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/7 Testing: test_reuse
+5/7 Test: test_reuse
+Command: "/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/test_reuse"
+Directory: /Users/piyushajitchavan/Desktop/tensor_alloc/build_asan
+"test_reuse" start time: Oct 21 10:38 IST
+Output:
+----------------------------------------------------------
+[test_reuse] Starting pool reuse tests...
+[test_reuse] All pool reuse tests passed!
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"test_reuse" end time: Oct 21 10:38 IST
+"test_reuse" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/7 Testing: test_invalid_inputs
+6/7 Test: test_invalid_inputs
+Command: "/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/test_invalid_inputs"
+Directory: /Users/piyushajitchavan/Desktop/tensor_alloc/build_asan
+"test_invalid_inputs" start time: Oct 21 10:38 IST
+Output:
+----------------------------------------------------------
+[test_invalid_inputs] Starting invalid input and ownership tests...
+[test_invalid_inputs] All invalid input tests passed!
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"test_invalid_inputs" end time: Oct 21 10:38 IST
+"test_invalid_inputs" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/7 Testing: test_multithreading
+7/7 Test: test_multithreading
+Command: "/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/test_multithreading"
+Directory: /Users/piyushajitchavan/Desktop/tensor_alloc/build_asan
+"test_multithreading" start time: Oct 21 10:38 IST
+Output:
+----------------------------------------------------------
+[test_multithreading] Starting concurrent multi-threaded stress test...
+[test_multithreading] Completed 4000 thread-safe operations successfully!
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"test_multithreading" end time: Oct 21 10:38 IST
+"test_multithreading" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 21 10:38 IST

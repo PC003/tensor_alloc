@@ -1,0 +1,11 @@
+/Users/piyushajitchavan/Desktop/tensor_alloc/build/CMakeFiles/tensor_alloc_lib.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build/CMakeFiles/test_size_class.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build/CMakeFiles/test_validation.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build/CMakeFiles/test_api.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build/CMakeFiles/test_alignment.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build/CMakeFiles/test_reuse.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build/CMakeFiles/test_invalid_inputs.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build/CMakeFiles/test_multithreading.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build/CMakeFiles/test.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build/CMakeFiles/edit_cache.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build/CMakeFiles/rebuild_cache.dir

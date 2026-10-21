@@ -1,0 +1,14 @@
+/Users/piyushajitchavan/Desktop/tensor_alloc/build_release/CMakeFiles/tensor_alloc_lib.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build_release/CMakeFiles/test_size_class.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build_release/CMakeFiles/test_validation.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build_release/CMakeFiles/test_api.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build_release/CMakeFiles/test_alignment.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build_release/CMakeFiles/test_reuse.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build_release/CMakeFiles/test_invalid_inputs.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build_release/CMakeFiles/test_multithreading.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build_release/CMakeFiles/allocator_microbench.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build_release/CMakeFiles/replay_trace.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build_release/CMakeFiles/basic_usage.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build_release/CMakeFiles/test.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build_release/CMakeFiles/edit_cache.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build_release/CMakeFiles/rebuild_cache.dir

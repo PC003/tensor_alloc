@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/test_alignment.dir/tests/test_alignment.cpp.o -o test_alignment  libtensor_alloc_lib.a

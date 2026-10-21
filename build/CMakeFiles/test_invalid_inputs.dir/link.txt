@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/test_invalid_inputs.dir/tests/test_invalid_inputs.cpp.o -o test_invalid_inputs  libtensor_alloc_lib.a

@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/test_api.dir/tests/test_api.cpp.o -o test_api  libtensor_alloc_lib.a

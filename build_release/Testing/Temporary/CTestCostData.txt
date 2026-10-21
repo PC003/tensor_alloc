@@ -1,0 +1,8 @@
+test_size_class 3 0.00123943
+test_validation 3 0.000618889
+test_api 3 0.000705306
+test_alignment 3 0.00104247
+test_reuse 2 0.00124462
+test_invalid_inputs 3 0.000641014
+test_multithreading 3 0.00208351
+---
