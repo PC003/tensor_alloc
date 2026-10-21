@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/tensor_alloc_lib.dir/src/api.cpp.o.d"
   "CMakeFiles/tensor_alloc_lib.dir/src/cpu_backend.cpp.o"
   "CMakeFiles/tensor_alloc_lib.dir/src/cpu_backend.cpp.o.d"
+  "CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.o"
+  "CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.o.d"
   "CMakeFiles/tensor_alloc_lib.dir/src/metrics.cpp.o"
   "CMakeFiles/tensor_alloc_lib.dir/src/metrics.cpp.o.d"
   "CMakeFiles/tensor_alloc_lib.dir/src/predictor_fallback.cpp.o"

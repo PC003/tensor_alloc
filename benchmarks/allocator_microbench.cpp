@@ -1,4 +1,6 @@
 #include "tensor_alloc.h"
+#include "predictor_interface.h"
+#include "learned_predictor.h"
 #include <chrono>
 #include <cstdio>
 #include <cstdlib>
@@ -6,6 +8,7 @@
 #include <algorithm>
 #include <numeric>
 #include <cstring>
+#include <fstream>
 
 using Clock = std::chrono::high_resolution_clock;
 
@@ -21,10 +24,11 @@ struct BenchmarkResult {
     size_t peak_requested_bytes;
     double internal_waste_pct;
     double reuse_rate_pct;
+    uint64_t fallback_count;
 };
 
 static void print_result_row(const BenchmarkResult& r) {
-    printf("| %-22s | %-13s | %8.2f ms | %10.0f ops/s | %7.1f ns | %7.1f ns | %8.2f%% | %7.1f%% |\n",
+    printf("| %-22s | %-16s | %8.2f ms | %10.0f ops/s | %7.1f ns | %7.1f ns | %8.2f%% | %7.1f%% |\n",
            r.workload_name,
            r.allocator_name,
            r.elapsed_ms,
@@ -35,7 +39,7 @@ static void print_result_row(const BenchmarkResult& r) {
            r.reuse_rate_pct);
 }
 
-// 1. Repeated Same Size Workload (e.g. 50,000 iterations of 4096 bytes)
+// 1. Repeated Same Size Workload (50,000 iterations of 4096 bytes)
 static void run_same_size_bench(int iterations, size_t size_bytes, std::vector<BenchmarkResult>& results) {
     const char* workload = "Repeated Same Size (4KB)";
 
@@ -74,9 +78,11 @@ static void run_same_size_bench(int iterations, size_t size_bytes, std::vector<B
         results.push_back(res);
     }
 
-    // tensor_alloc
+    // tensor_alloc (Fixed Baseline)
     {
         tensor_shutdown();
+        set_active_predictor(nullptr); // Baseline
+
         tensor_alloc_request_t req{};
         req.device = TENSOR_DEVICE_CPU;
         req.dtype = TENSOR_DTYPE_FLOAT32;
@@ -105,7 +111,7 @@ static void run_same_size_bench(int iterations, size_t size_bytes, std::vector<B
 
         BenchmarkResult res{};
         res.workload_name = workload;
-        res.allocator_name = "tensor_alloc";
+        res.allocator_name = "tensor_alloc(base)";
         res.total_ops = iterations * 2;
         res.elapsed_ms = elapsed_ms;
         res.ops_per_sec = (iterations * 2.0) / (elapsed_ms / 1000.0);
@@ -115,7 +121,57 @@ static void run_same_size_bench(int iterations, size_t size_bytes, std::vector<B
         res.peak_reserved_bytes = m.peak_reserved_bytes;
         res.internal_waste_pct = m.internal_waste_ratio * 100.0;
         res.reuse_rate_pct = m.reuse_rate * 100.0;
+        res.fallback_count = m.fallback_count;
         results.push_back(res);
+        tensor_shutdown();
+    }
+
+    // tensor_alloc (Learned Model Predictor)
+    if (learned_predictor_is_loaded()) {
+        tensor_shutdown();
+        set_active_predictor(learned_predictor_get());
+
+        tensor_alloc_request_t req{};
+        req.device = TENSOR_DEVICE_CPU;
+        req.dtype = TENSOR_DTYPE_FLOAT32;
+        req.requested_bytes = size_bytes;
+
+        std::vector<double> latencies_ns;
+        latencies_ns.reserve(iterations);
+
+        auto start = Clock::now();
+        for (int i = 0; i < iterations; ++i) {
+            auto t0 = Clock::now();
+            void* p = nullptr;
+            tensor_malloc(&req, &p);
+            auto t1 = Clock::now();
+            latencies_ns.push_back(std::chrono::duration<double, std::nano>(t1 - t0).count());
+            tensor_free(p);
+        }
+        auto end = Clock::now();
+        double elapsed_ms = std::chrono::duration<double, std::milli>(end - start).count();
+
+        std::sort(latencies_ns.begin(), latencies_ns.end());
+        double p50 = latencies_ns[latencies_ns.size() / 2];
+        double p99 = latencies_ns[static_cast<size_t>(latencies_ns.size() * 0.99)];
+
+        tensor_metrics_snapshot_t m = tensor_get_metrics();
+
+        BenchmarkResult res{};
+        res.workload_name = workload;
+        res.allocator_name = "tensor_alloc(ml)";
+        res.total_ops = iterations * 2;
+        res.elapsed_ms = elapsed_ms;
+        res.ops_per_sec = (iterations * 2.0) / (elapsed_ms / 1000.0);
+        res.p50_latency_ns = p50;
+        res.p99_latency_ns = p99;
+        res.peak_requested_bytes = m.peak_requested_bytes;
+        res.peak_reserved_bytes = m.peak_reserved_bytes;
+        res.internal_waste_pct = m.internal_waste_ratio * 100.0;
+        res.reuse_rate_pct = m.reuse_rate * 100.0;
+        res.fallback_count = m.fallback_count;
+        results.push_back(res);
+        set_active_predictor(nullptr);
         tensor_shutdown();
     }
 }
@@ -160,9 +216,11 @@ static void run_mixed_sizes_bench(int iterations, std::vector<BenchmarkResult>& 
         results.push_back(res);
     }
 
-    // tensor_alloc
+    // tensor_alloc (Fixed Baseline)
     {
         tensor_shutdown();
+        set_active_predictor(nullptr);
+
         tensor_alloc_request_t req{};
         req.device = TENSOR_DEVICE_CPU;
         req.dtype = TENSOR_DTYPE_FLOAT32;
@@ -192,7 +250,7 @@ static void run_mixed_sizes_bench(int iterations, std::vector<BenchmarkResult>& 
 
         BenchmarkResult res{};
         res.workload_name = workload;
-        res.allocator_name = "tensor_alloc";
+        res.allocator_name = "tensor_alloc(base)";
         res.total_ops = iterations * 2;
         res.elapsed_ms = elapsed_ms;
         res.ops_per_sec = (iterations * 2.0) / (elapsed_ms / 1000.0);
@@ -200,12 +258,61 @@ static void run_mixed_sizes_bench(int iterations, std::vector<BenchmarkResult>& 
         res.p99_latency_ns = p99;
         res.internal_waste_pct = m.internal_waste_ratio * 100.0;
         res.reuse_rate_pct = m.reuse_rate * 100.0;
+        res.fallback_count = m.fallback_count;
         results.push_back(res);
+        tensor_shutdown();
+    }
+
+    // tensor_alloc (Learned Model)
+    if (learned_predictor_is_loaded()) {
+        tensor_shutdown();
+        set_active_predictor(learned_predictor_get());
+
+        tensor_alloc_request_t req{};
+        req.device = TENSOR_DEVICE_CPU;
+        req.dtype = TENSOR_DTYPE_FLOAT32;
+
+        std::vector<double> latencies_ns;
+        latencies_ns.reserve(iterations);
+
+        auto start = Clock::now();
+        for (int i = 0; i < iterations; ++i) {
+            size_t sz = sizes[i % num_sizes];
+            req.requested_bytes = sz;
+            auto t0 = Clock::now();
+            void* p = nullptr;
+            tensor_malloc(&req, &p);
+            auto t1 = Clock::now();
+            latencies_ns.push_back(std::chrono::duration<double, std::nano>(t1 - t0).count());
+            tensor_free(p);
+        }
+        auto end = Clock::now();
+        double elapsed_ms = std::chrono::duration<double, std::milli>(end - start).count();
+
+        std::sort(latencies_ns.begin(), latencies_ns.end());
+        double p50 = latencies_ns[latencies_ns.size() / 2];
+        double p99 = latencies_ns[static_cast<size_t>(latencies_ns.size() * 0.99)];
+
+        tensor_metrics_snapshot_t m = tensor_get_metrics();
+
+        BenchmarkResult res{};
+        res.workload_name = workload;
+        res.allocator_name = "tensor_alloc(ml)";
+        res.total_ops = iterations * 2;
+        res.elapsed_ms = elapsed_ms;
+        res.ops_per_sec = (iterations * 2.0) / (elapsed_ms / 1000.0);
+        res.p50_latency_ns = p50;
+        res.p99_latency_ns = p99;
+        res.internal_waste_pct = m.internal_waste_ratio * 100.0;
+        res.reuse_rate_pct = m.reuse_rate * 100.0;
+        res.fallback_count = m.fallback_count;
+        results.push_back(res);
+        set_active_predictor(nullptr);
         tensor_shutdown();
     }
 }
 
-// 3. Bursty Allocations (Alloc 100, Free 100, repeated 200 times)
+// 3. Bursty Allocations (Batch 100)
 static void run_bursty_bench(int rounds, int batch_size, std::vector<BenchmarkResult>& results) {
     const char* workload = "Bursty (Batch 100)";
     size_t total_ops = rounds * batch_size * 2;
@@ -249,9 +356,11 @@ static void run_bursty_bench(int rounds, int batch_size, std::vector<BenchmarkRe
         results.push_back(res);
     }
 
-    // tensor_alloc
+    // tensor_alloc (Fixed Baseline)
     {
         tensor_shutdown();
+        set_active_predictor(nullptr);
+
         tensor_alloc_request_t req{};
         req.device = TENSOR_DEVICE_CPU;
         req.dtype = TENSOR_DTYPE_FLOAT32;
@@ -285,7 +394,7 @@ static void run_bursty_bench(int rounds, int batch_size, std::vector<BenchmarkRe
 
         BenchmarkResult res{};
         res.workload_name = workload;
-        res.allocator_name = "tensor_alloc";
+        res.allocator_name = "tensor_alloc(base)";
         res.total_ops = total_ops;
         res.elapsed_ms = elapsed_ms;
         res.ops_per_sec = static_cast<double>(total_ops) / (elapsed_ms / 1000.0);
@@ -293,7 +402,60 @@ static void run_bursty_bench(int rounds, int batch_size, std::vector<BenchmarkRe
         res.p99_latency_ns = p99;
         res.internal_waste_pct = m.internal_waste_ratio * 100.0;
         res.reuse_rate_pct = m.reuse_rate * 100.0;
+        res.fallback_count = m.fallback_count;
         results.push_back(res);
+        tensor_shutdown();
+    }
+
+    // tensor_alloc (Learned Model)
+    if (learned_predictor_is_loaded()) {
+        tensor_shutdown();
+        set_active_predictor(learned_predictor_get());
+
+        tensor_alloc_request_t req{};
+        req.device = TENSOR_DEVICE_CPU;
+        req.dtype = TENSOR_DTYPE_FLOAT32;
+
+        std::vector<void*> batch(batch_size, nullptr);
+        std::vector<double> latencies_ns;
+        latencies_ns.reserve(rounds * batch_size);
+
+        auto start = Clock::now();
+        for (int r = 0; r < rounds; ++r) {
+            for (int b = 0; b < batch_size; ++b) {
+                size_t sz = ((b % 8) + 1) * 1024;
+                req.requested_bytes = sz;
+                auto t0 = Clock::now();
+                tensor_malloc(&req, &batch[b]);
+                auto t1 = Clock::now();
+                latencies_ns.push_back(std::chrono::duration<double, std::nano>(t1 - t0).count());
+            }
+            for (int b = 0; b < batch_size; ++b) {
+                tensor_free(batch[b]);
+            }
+        }
+        auto end = Clock::now();
+        double elapsed_ms = std::chrono::duration<double, std::milli>(end - start).count();
+
+        std::sort(latencies_ns.begin(), latencies_ns.end());
+        double p50 = latencies_ns[latencies_ns.size() / 2];
+        double p99 = latencies_ns[static_cast<size_t>(latencies_ns.size() * 0.99)];
+
+        tensor_metrics_snapshot_t m = tensor_get_metrics();
+
+        BenchmarkResult res{};
+        res.workload_name = workload;
+        res.allocator_name = "tensor_alloc(ml)";
+        res.total_ops = total_ops;
+        res.elapsed_ms = elapsed_ms;
+        res.ops_per_sec = static_cast<double>(total_ops) / (elapsed_ms / 1000.0);
+        res.p50_latency_ns = p50;
+        res.p99_latency_ns = p99;
+        res.internal_waste_pct = m.internal_waste_ratio * 100.0;
+        res.reuse_rate_pct = m.reuse_rate * 100.0;
+        res.fallback_count = m.fallback_count;
+        results.push_back(res);
+        set_active_predictor(nullptr);
         tensor_shutdown();
     }
 }
@@ -304,9 +466,21 @@ int main() {
     printf("========================================================================================================\n");
     printf("OS: macOS (Darwin arm64) | Compiler: AppleClang 17.0.0 | Allocation Alignment: %d bytes\n", TENSOR_ALLOC_ALIGNMENT);
     printf("Size Classes: 21 (64 B -> 64 MB) | Large Allocation Fallback: Aligned posix_memalign\n");
+
+    // Attempt to load learned model for benchmark
+    const char* model_path = "models/learned_predictor.json";
+    std::ifstream check(model_path);
+    if (!check.is_open()) {
+        model_path = "../models/learned_predictor.json";
+    } else {
+        check.close();
+    }
+    tensor_status_t m_status = learned_predictor_load(model_path);
+    printf("Learned Model Loaded: %s (%s)\n", (m_status == TENSOR_STATUS_SUCCESS) ? "YES" : "NO", model_path);
+
     printf("--------------------------------------------------------------------------------------------------------\n");
-    printf("| Workload               | Allocator     |    Elapsed |   Throughput | Latency p50 | Latency p99 | Waste %%   | Reuse %%  |\n");
-    printf("|------------------------|---------------|------------|--------------|-------------|-------------|-----------|----------|\n");
+    printf("| Workload               | Allocator        |    Elapsed |   Throughput | Latency p50 | Latency p99 | Waste %%   | Reuse %%  |\n");
+    printf("|------------------------|------------------|------------|--------------|-------------|-------------|-----------|----------|\n");
 
     std::vector<BenchmarkResult> results;
 
@@ -320,22 +494,7 @@ int main() {
     }
 
     printf("========================================================================================================\n");
-    printf("\nJSON Summary:\n[\n");
-    for (size_t i = 0; i < results.size(); ++i) {
-        const auto& r = results[i];
-        printf("  {\n");
-        printf("    \"workload\": \"%s\",\n", r.workload_name);
-        printf("    \"allocator\": \"%s\",\n", r.allocator_name);
-        printf("    \"total_ops\": %zu,\n", r.total_ops);
-        printf("    \"elapsed_ms\": %.2f,\n", r.elapsed_ms);
-        printf("    \"ops_per_sec\": %.2f,\n", r.ops_per_sec);
-        printf("    \"p50_latency_ns\": %.1f,\n", r.p50_latency_ns);
-        printf("    \"p99_latency_ns\": %.1f,\n", r.p99_latency_ns);
-        printf("    \"internal_waste_pct\": %.2f,\n", r.internal_waste_pct);
-        printf("    \"reuse_rate_pct\": %.2f\n", r.reuse_rate_pct);
-        printf("  }%s\n", (i + 1 == results.size()) ? "" : ",");
-    }
-    printf("]\n");
 
+    learned_predictor_destroy();
     return 0;
 }

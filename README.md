@@ -2,15 +2,16 @@
 
 `tensor_alloc` is a high-performance, userspace memory allocator designed specifically for tensor and machine learning computation workloads. Rather than treating memory requests as opaque byte counts, `tensor_alloc` accepts structured tensor metadata (dimensions, rank, strides, data type, device, lifetime hint, and authoritative byte count), enabling fine-grained size-classing, 64-byte vector alignment, userspace pool reuse, and comprehensive memory metrics tracking.
 
-## Current Milestone Status: Phase 1 & Phase 2 Complete
+## Current Milestone Status: Phase 1, Phase 2 & Phase 3 Complete
 
 - **Platform:** macOS (Apple Silicon arm64) and POSIX-compliant systems.
 - **Backend:** CPU-only (`TENSOR_DEVICE_CPU`). Guaranteed 64-byte alignment (`TENSOR_ALLOC_ALIGNMENT`).
-- **Policy:** Deterministic power-of-two size class baseline (21 pools from 64 B to 64 MB) plus aligned large-allocation path.
-- **Safety:** Explicit metadata validation, integer overflow protection, allocation ownership registry, and double-free detection.
+- **Policy:** Deterministic power-of-two size class baseline + C++ Learned Decision Tree Predictor (`models/learned_predictor.json`) with automatic fallback to baseline on mismatch or safety checks.
+- **Safety:** Explicit metadata validation, integer overflow protection, allocation ownership registry, double-free detection, and predictor capacity invariants ($\text{capacity} \ge \text{requested}$).
 - **Metrics & Tracing:** Thread-safe metrics tracking, peak watermarks, and runtime JSONL event recording (`tensor_trace_start` / `tensor_trace_stop`).
 - **Trace Pipeline:** Python multi-workload trace generator (Transformer, ConvNet, Mixed), multidimensional trace analyzer, and split-by-run label generator for ML training.
-- **Testing:** 100% passing test suite across 9 test targets in Debug, Release, and AddressSanitizer/UndefinedBehaviorSanitizer builds.
+- **Learned Predictor:** Offline CART decision tree trainer with Gini impurity splitting, multi-policy evaluation harness, and sub-microsecond C++ tree inference engine.
+- **Testing:** 100% passing test suite across 11 test targets in Debug, Release, and AddressSanitizer/UndefinedBehaviorSanitizer builds.
 
 ---
 
@@ -88,7 +89,7 @@ Run the compiled example:
 ## Microbenchmark and Trace Replay
 
 ### Run Microbenchmark
-Compare `tensor_alloc` against system `malloc/free` across synthetic machine learning workload patterns:
+Compare `sys_malloc`, `tensor_alloc (baseline)`, and `tensor_alloc (learned ML predictor)` across synthetic machine learning workload patterns:
 ```bash
 ./build_release/allocator_microbench
 ```
@@ -96,12 +97,15 @@ Compare `tensor_alloc` against system `malloc/free` across synthetic machine lea
 #### Locally Measured Results (Apple M-series arm64, macOS Darwin 24.6.0, AppleClang 17.0.0):
 | Workload Pattern | Allocator | Total Operations | Throughput | Latency (p50) | Latency (p99) | Pool Reuse % |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Repeated Same Size (4KB)** | `sys_malloc` | 100,000 | 35.69M ops/s | 41.0 ns | 42.0 ns | 0.0% |
-| **Repeated Same Size (4KB)** | `tensor_alloc` | 100,000 | 9.16M ops/s | 125.0 ns | 125.0 ns | **100.0%** |
-| **Mixed Sizes (64B – 1MB)** | `sys_malloc` | 60,000 | 29.57M ops/s | 41.0 ns | 42.0 ns | 0.0% |
-| **Mixed Sizes (64B – 1MB)** | `tensor_alloc` | 60,000 | 9.28M ops/s | 125.0 ns | 167.0 ns | **99.97%** |
-| **Bursty (Batch 100)** | `sys_malloc` | 50,000 | 18.62M ops/s | 42.0 ns | 84.0 ns | 0.0% |
-| **Bursty (Batch 100)** | `tensor_alloc` | 50,000 | 10.92M ops/s | 83.0 ns | 125.0 ns | **99.60%** |
+| **Repeated Same Size (4KB)** | `sys_malloc` | 100,000 | 46.92M ops/s | 0.0 ns | 42.0 ns | 0.0% |
+| **Repeated Same Size (4KB)** | `tensor_alloc(base)` | 100,000 | 16.05M ops/s | 83.0 ns | 84.0 ns | **100.0%** |
+| **Repeated Same Size (4KB)** | `tensor_alloc(ml)` | 100,000 | 16.04M ops/s | 83.0 ns | 84.0 ns | **100.0%** |
+| **Mixed Sizes (64B – 1MB)** | `sys_malloc` | 60,000 | 54.45M ops/s | 0.0 ns | 42.0 ns | 0.0% |
+| **Mixed Sizes (64B – 1MB)** | `tensor_alloc(base)` | 60,000 | 15.47M ops/s | 83.0 ns | 84.0 ns | **100.0%** |
+| **Mixed Sizes (64B – 1MB)** | `tensor_alloc(ml)` | 60,000 | 16.87M ops/s | 83.0 ns | 84.0 ns | **100.0%** |
+| **Bursty (Batch 100)** | `sys_malloc` | 50,000 | 32.67M ops/s | 41.0 ns | 42.0 ns | 0.0% |
+| **Bursty (Batch 100)** | `tensor_alloc(base)` | 50,000 | 15.85M ops/s | 42.0 ns | 84.0 ns | **99.6%** |
+| **Bursty (Batch 100)** | `tensor_alloc(ml)` | 50,000 | 15.31M ops/s | 42.0 ns | 84.0 ns | **99.6%** |
 
 ### Run Trace Replay
 Replay a sequence of tensor allocations and deallocations:
@@ -110,13 +114,22 @@ Replay a sequence of tensor allocations and deallocations:
 ```
 *Result: Replayed 60,392 events in 13.04 ms (4.63M ops/sec) with 65.57% pool reuse rate.*
 
-### Generate and Analyze Traces with Python
+### Trace Collection, ML Model Training & Evaluation
 ```bash
-# Generate 2,000 event JSONL synthetic workload trace
+# 1. Generate 2,000-event JSONL synthetic workload trace
 python3 python/collect_trace.py --output traces/workload.jsonl --events 2000
 
-# Analyze size distributions, lifetimes, and size-class internal waste
+# 2. Analyze size distributions, lifetimes, and size-class internal waste
 python3 python/analyze_trace.py traces/workload.jsonl
+
+# 3. Extract features and build labeled ML dataset
+python3 python/build_labels.py --input traces/workload.jsonl --output traces/labeled_dataset.json
+
+# 4. Train CART decision tree predictor model
+python3 python/train_predictor.py --dataset traces/labeled_dataset.json --output models/learned_predictor.json
+
+# 5. Evaluate learned predictor against baseline, heuristic, and oracle
+python3 python/evaluate_predictor.py --dataset traces/labeled_dataset.json --model models/learned_predictor.json
 ```
 
 ---
@@ -125,6 +138,7 @@ python3 python/analyze_trace.py traces/workload.jsonl
 
 - [Architecture Specification](ARCHITECTURE.md): Data-flow diagrams, complete codebase file map, API contracts, and invariants.
 - [Metrics Specification](docs/METRICS.md): Exact mathematical formulas for waste ratios, capacity tracking, and measurement boundaries.
+- [Model Specification & Schema](models/README.md): Decision tree architecture, feature vector mapping, and inference engine.
 - [Experimental Results](docs/EXPERIMENTS.md): Methodology, hardware environment, reproducibility logs, and benchmark tables.
 - [Current Limitations](docs/LIMITATIONS.md): Unsupported features, deferred phases (CUDA, LinUCB, PyTorch replacement), and risk evaluation.
 
@@ -133,5 +147,5 @@ python3 python/analyze_trace.py traces/workload.jsonl
 ## Current Limitations
 
 1. **CPU Only:** Requests with `TENSOR_DEVICE_CUDA` are cleanly rejected (`TENSOR_STATUS_UNSUPPORTED_DEVICE`). CUDA stream synchronization and device pointers are scheduled for Phase 5.
-2. **Learned Predictor:** The runtime currently uses the deterministic baseline. Machine learning models and ONNX inference are scheduled for Phase 3.
+2. **Learned Predictor Deployment:** The sub-microsecond C++ decision tree engine (`models/learned_predictor.json`) is fully integrated and tested in runtime. Online reinforcement learning / LinUCB contextual bandit updates are scheduled for Phase 4.
 3. **Pluggable Allocator:** Provides a standalone C API; not a drop-in replacement for PyTorch's internal allocator.

@@ -69,6 +69,7 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/test_invalid_inputs.dir/DependInfo.cmake"
   "CMakeFiles/test_multithreading.dir/DependInfo.cmake"
   "CMakeFiles/test_trace_recorder.dir/DependInfo.cmake"
+  "CMakeFiles/test_learned_predictor.dir/DependInfo.cmake"
   "CMakeFiles/allocator_microbench.dir/DependInfo.cmake"
   "CMakeFiles/replay_trace.dir/DependInfo.cmake"
   "CMakeFiles/basic_usage.dir/DependInfo.cmake"

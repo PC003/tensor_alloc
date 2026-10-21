@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/test_learned_predictor.dir/tests/test_learned_predictor.cpp.o -o test_learned_predictor  libtensor_alloc_lib.a

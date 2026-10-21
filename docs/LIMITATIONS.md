@@ -1,6 +1,6 @@
 # tensor_alloc — Current Limitations and Known Risks
 
-This document records the design constraints, unimplemented features, and known architectural risks of `tensor_alloc` as of Milestone Phase 1 (CPU MVP).
+This document records the design constraints, unimplemented features, and known architectural risks of `tensor_alloc` as of Milestone Phase 3 (Learned Predictor & Runtime Integration).
 
 ---
 
@@ -10,12 +10,12 @@ This document records the design constraints, unimplemented features, and known 
   Only `TENSOR_DEVICE_CPU` is currently supported. Allocations requesting `TENSOR_DEVICE_CUDA` are rejected immediately with `TENSOR_STATUS_UNSUPPORTED_DEVICE`. CUDA stream synchronization, device pointer ownership, and unified memory semantics are deferred to Phase 5.
 - **Custom C API vs. Framework Integration:**
   `tensor_alloc` exposes a standalone C-compatible API (`tensor_malloc`, `tensor_free`). It is **not** a drop-in replacement for PyTorch's native allocator (`c10::cuda::CUDACachingAllocator` or default CPU allocator). Integrating into PyTorch's pluggable allocator interface requires custom PyTorch C++ bindings and is deferred.
-- **Phase 2 Complete (Trace Pipeline & Labeling):**
-  Versioned trace collection (`collect_trace.py`), runtime C++ tracing (`tensor_trace_start`), multidimensional analysis (`analyze_trace.py`), and split-by-run labeling (`build_labels.py`) are fully implemented and verified.
-- **Deterministic Size Classes (No Learned Predictor in MVP / Phase 2):**
-  Size classes are determined by a deterministic power-of-two baseline (`src/predictor_fallback.cpp`). The predictor interface (`src/predictor_interface.h`) is active and validated with safety fallback, but the machine-learned predictor, dataset curation, and ONNX inference are deferred to Phase 3.
-- **No Online Bandit:**
-  LinUCB online adaptation is not implemented. It requires validated offline model rewards and reproducible logging before being introduced (Phase 4).
+- **Phase 2 & Phase 3 Complete:**
+  Trace recording, pipeline analysis, split-by-run dataset generation, offline CART decision tree training (`train_predictor.py`), multi-policy offline evaluation (`evaluate_predictor.py`), sub-microsecond C++ tree inference (`LearnedPredictor`), and runtime safety fallback wrappers are fully implemented, benchmarked, and verified.
+- **No Third-Party Python Dependencies:**
+  To guarantee zero environmental dependencies and deterministic portability across fresh host environments without pip packages, the tree model training and evaluation are implemented in standard Python (`python3`). Full neural network architectures / ONNX runtime inference can be integrated when external C++ runtimes are linked.
+- **No Online Bandit (Phase 4):**
+  LinUCB contextual bandit online exploration and live policy updates are scheduled for Phase 4. Currently, the tree model is trained offline and executed deterministically at runtime.
 
 ---
 

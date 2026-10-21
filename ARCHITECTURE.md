@@ -1,6 +1,6 @@
 # tensor_alloc — System Architecture and Codebase Specification
 
-> **Milestone Status:** Phase 1 (CPU MVP) and Phase 2 (Trace Collection, Analysis & Labeling Pipeline) Complete and Tested.
+> **Milestone Status:** Phase 1 (CPU MVP), Phase 2 (Trace Collection, Analysis & Labeling Pipeline), and Phase 3 (Learned Predictor & Runtime Integration) Complete and Tested.
 
 ---
 
@@ -115,7 +115,9 @@ tensor_alloc/
 │   ├── trace_recorder.h           # Runtime trace recording declarations
 │   ├── trace_recorder.cpp         # High-resolution JSONL event logging for allocations and frees
 │   ├── predictor_interface.h      # IPredictor abstract interface & safe validation wrapper
-│   └── predictor_fallback.cpp     # Deterministic baseline predictor implementation
+│   ├── predictor_fallback.cpp     # Deterministic baseline predictor implementation
+│   ├── learned_predictor.h        # Tree-based learned predictor class & feature extraction
+│   └── learned_predictor.cpp      # JSON tree deserialization, feature computation & inference
 ├── tests/
 │   ├── test_helpers.h             # TEST_ASSERT macro (always evaluated regardless of NDEBUG)
 │   ├── test_size_class.cpp        # Size class lookup, boundaries, powers of 2, large path
@@ -126,21 +128,26 @@ tensor_alloc/
 │   ├── test_invalid_inputs.cpp    # Double-free, unknown pointer, zero-byte, CUDA rejection
 │   ├── test_multithreading.cpp    # Concurrent thread-safety stress test across 8 threads
 │   ├── test_trace_recorder.cpp    # Verification of C++ runtime trace recording
-│   └── test_trace_pipeline.py     # End-to-end Python pipeline test (collect, analyze, replay, label)
+│   ├── test_trace_pipeline.py     # End-to-end Python pipeline test (collect, analyze, replay, label)
+│   ├── test_learned_predictor.cpp # Verification of C++ learned predictor loader & inference
+│   └── test_phase3_pipeline.py    # Verification of train/eval Python pipeline & artifact generation
 ├── benchmarks/
-│   ├── allocator_microbench.cpp   # Microbenchmark comparing sys_malloc vs tensor_alloc
+│   ├── allocator_microbench.cpp   # Microbenchmark comparing sys_malloc vs tensor_alloc (baseline & ML)
 │   └── replay_trace.cpp           # JSONL trace replay benchmark harness with sys_malloc comparison
 ├── python/
 │   ├── collect_trace.py           # Multi-workload trace generator (Transformer, ConvNet, Mixed; JSONL/CSV)
 │   ├── analyze_trace.py           # Multi-metric trace analyzer (percentiles, concurrency, waste, comparison)
-│   └── build_labels.py            # Feature extractor and objective labeler with split-by-run partitioning
+│   ├── build_labels.py            # Feature extractor and objective labeler with split-by-run partitioning
+│   ├── train_predictor.py         # Offline decision tree trainer (Gini impurity, CART splits, JSON export)
+│   └── evaluate_predictor.py      # Multi-policy offline evaluation (baseline vs heuristic vs learned vs oracle)
 ├── traces/
 │   ├── README.md                  # Trace schema documentation (v1.1.0) and semantics
 │   ├── transformer_trace.jsonl    # Transformer model step allocation trace
 │   ├── convnet_trace.jsonl        # ConvNet multi-stage allocation trace
 │   └── labeled_dataset.json       # Labeled ML dataset partitioned by run_id
 ├── models/
-│   └── README.md                  # Model artifact placeholder and Phase 3 roadmap
+│   ├── README.md                  # Model artifact schema and performance characteristics
+│   └── learned_predictor.json     # Trained 11-node decision tree for size class prediction
 ├── examples/
 │   └── basic_usage.cpp            # Complete 3D tensor allocation and pool reuse example
 └── docs/
@@ -193,6 +200,14 @@ tensor_alloc/
 - `IPredictor`: Pure abstract interface for future ML-based size-class recommendation models.
 - `predict_size_class_safe(...)`: Queries predictor, validates that recommendation satisfies `capacity >= requested_bytes`, and safely triggers the deterministic baseline fallback if validation fails.
 
+### 3.7 Learned Predictor Engine (`src/learned_predictor.h/.cpp`, `python/train_predictor.py`, `python/evaluate_predictor.py`)
+- `LearnedPredictor`: C++ runtime implementation of `IPredictor` loading trained JSON decision tree models.
+  - Implements sub-microsecond recursive tree traversal without third-party dependencies.
+  - Feature extraction maps incoming `tensor_alloc_request_t` to the canonical 11-dimensional feature vector.
+  - Returns recommended `size_class_t` or delegates to deterministic baseline.
+- `python/train_predictor.py`: Pure standard library CART decision tree trainer with Gini impurity splitting, cost-complexity pruning, and clean JSON export.
+- `python/evaluate_predictor.py`: Multi-policy benchmark evaluator comparing baseline, heuristic, learned decision tree, and oracle on held-out test splits.
+
 ---
 
 ## 4. Invariants and Safety Guarantees
@@ -204,3 +219,4 @@ tensor_alloc/
 5. **Double-Free Safety:** Deallocating an already-freed pointer returns `TENSOR_STATUS_DOUBLE_FREE` without corrupting heap metadata.
 6. **Unknown Pointer Safety:** Deallocating arbitrary heap or stack pointers returns `TENSOR_STATUS_NOT_FOUND`.
 7. **Thread Safety:** All public APIs and internal pools are protected against race conditions across concurrent threads.
+8. **Predictor Safety Fallback Invariant:** If a machine-learned predictor suggests a size class whose capacity is smaller than `requested_bytes` (or if an inference failure occurs), `predict_size_class_safe` unconditionally intercepts the recommendation, increments `fallback_count`, and assigns the verified deterministic baseline size class. Memory safety is never sacrificed for learned recommendations.

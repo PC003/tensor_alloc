@@ -40,16 +40,19 @@ cmake --build build_release --parallel
 ./build_release/allocator_microbench
 ```
 
-### Comparative Summary Table
+### Comparative Summary Table (Three-Way Benchmark)
 
 | Workload | Allocator | Total Ops | Elapsed (ms) | Throughput (ops/s) | Latency p50 | Latency p99 | Waste % | Pool Reuse % |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Repeated Same Size (4KB)** | `sys_malloc` | 100,000 | 2.80 ms | 35,686,667 | 41.0 ns | 42.0 ns | 0.00% | 0.0% |
-| **Repeated Same Size (4KB)** | `tensor_alloc` | 100,000 | 10.92 ms | 9,160,340 | 125.0 ns | 125.0 ns | 0.00% | **100.0%** |
-| **Mixed Sizes (64B–1MB)** | `sys_malloc` | 60,000 | 2.03 ms | 29,571,815 | 41.0 ns | 42.0 ns | 0.00% | 0.0% |
-| **Mixed Sizes (64B–1MB)** | `tensor_alloc` | 60,000 | 6.46 ms | 9,282,776 | 125.0 ns | 167.0 ns | 0.00% | **99.97%** |
-| **Bursty (Batch 100)** | `sys_malloc` | 50,000 | 2.69 ms | 18,615,907 | 42.0 ns | 84.0 ns | 0.00% | 0.0% |
-| **Bursty (Batch 100)** | `tensor_alloc` | 50,000 | 4.58 ms | 10,920,111 | 83.0 ns | 125.0 ns | 0.00% | **99.60%** |
+| **Repeated Same Size (4KB)** | `sys_malloc` | 100,000 | 2.50 ms | 39,949,392 | 41.0 ns | 42.0 ns | 0.00% | 0.0% |
+| **Repeated Same Size (4KB)** | `tensor_alloc(base)` | 100,000 | 11.64 ms | 8,588,975 | 125.0 ns | 167.0 ns | 0.00% | **100.0%** |
+| **Repeated Same Size (4KB)** | `tensor_alloc(ml)` | 100,000 | **8.12 ms** | **12,316,472** | **83.0 ns** | 167.0 ns | 0.00% | **100.0%** |
+| **Mixed Sizes (64B–1MB)** | `sys_malloc` | 60,000 | 1.58 ms | 37,892,758 | 0.0 ns | 42.0 ns | 0.00% | 0.0% |
+| **Mixed Sizes (64B–1MB)** | `tensor_alloc(base)` | 60,000 | 5.28 ms | 11,362,651 | 83.0 ns | 125.0 ns | 0.00% | **100.0%** |
+| **Mixed Sizes (64B–1MB)** | `tensor_alloc(ml)` | 60,000 | 5.30 ms | 11,314,350 | 84.0 ns | 167.0 ns | 0.00% | **100.0%** |
+| **Bursty (Batch 100)** | `sys_malloc` | 50,000 | 2.26 ms | 22,108,809 | 42.0 ns | 166.0 ns | 0.00% | 0.0% |
+| **Bursty (Batch 100)** | `tensor_alloc(base)` | 50,000 | 4.32 ms | 11,562,921 | 83.0 ns | 125.0 ns | 0.00% | **99.60%** |
+| **Bursty (Batch 100)** | `tensor_alloc(ml)` | 50,000 | 4.33 ms | 11,553,126 | 83.0 ns | 125.0 ns | 0.00% | **99.60%** |
 
 ---
 

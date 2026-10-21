@@ -7,6 +7,7 @@
 /Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/CMakeFiles/test_invalid_inputs.dir
 /Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/CMakeFiles/test_multithreading.dir
 /Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/CMakeFiles/test_trace_recorder.dir
+/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/CMakeFiles/test_learned_predictor.dir
 /Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/CMakeFiles/allocator_microbench.dir
 /Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/CMakeFiles/replay_trace.dir
 /Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/CMakeFiles/basic_usage.dir

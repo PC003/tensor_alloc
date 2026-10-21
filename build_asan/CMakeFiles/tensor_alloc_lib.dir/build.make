@@ -170,10 +170,24 @@ CMakeFiles/tensor_alloc_lib.dir/src/trace_recorder.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/tensor_alloc_lib.dir/src/trace_recorder.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/piyushajitchavan/Desktop/tensor_alloc/src/trace_recorder.cpp -o CMakeFiles/tensor_alloc_lib.dir/src/trace_recorder.cpp.s
 
+CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.o: CMakeFiles/tensor_alloc_lib.dir/flags.make
+CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.o: /Users/piyushajitchavan/Desktop/tensor_alloc/src/learned_predictor.cpp
+CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.o: CMakeFiles/tensor_alloc_lib.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.o -MF CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.o.d -o CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/src/learned_predictor.cpp
+
+CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/piyushajitchavan/Desktop/tensor_alloc/src/learned_predictor.cpp > CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.i
+
+CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/piyushajitchavan/Desktop/tensor_alloc/src/learned_predictor.cpp -o CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.s
+
 CMakeFiles/tensor_alloc_lib.dir/src/api.cpp.o: CMakeFiles/tensor_alloc_lib.dir/flags.make
 CMakeFiles/tensor_alloc_lib.dir/src/api.cpp.o: /Users/piyushajitchavan/Desktop/tensor_alloc/src/api.cpp
 CMakeFiles/tensor_alloc_lib.dir/src/api.cpp.o: CMakeFiles/tensor_alloc_lib.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/tensor_alloc_lib.dir/src/api.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/tensor_alloc_lib.dir/src/api.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/tensor_alloc_lib.dir/src/api.cpp.o -MF CMakeFiles/tensor_alloc_lib.dir/src/api.cpp.o.d -o CMakeFiles/tensor_alloc_lib.dir/src/api.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/src/api.cpp
 
 CMakeFiles/tensor_alloc_lib.dir/src/api.cpp.i: cmake_force
@@ -193,6 +207,7 @@ tensor_alloc_lib_OBJECTS = \
 "CMakeFiles/tensor_alloc_lib.dir/src/allocation_registry.cpp.o" \
 "CMakeFiles/tensor_alloc_lib.dir/src/cpu_backend.cpp.o" \
 "CMakeFiles/tensor_alloc_lib.dir/src/trace_recorder.cpp.o" \
+"CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.o" \
 "CMakeFiles/tensor_alloc_lib.dir/src/api.cpp.o"
 
 # External object files for target tensor_alloc_lib
@@ -205,10 +220,11 @@ libtensor_alloc_lib.a: CMakeFiles/tensor_alloc_lib.dir/src/metrics.cpp.o
 libtensor_alloc_lib.a: CMakeFiles/tensor_alloc_lib.dir/src/allocation_registry.cpp.o
 libtensor_alloc_lib.a: CMakeFiles/tensor_alloc_lib.dir/src/cpu_backend.cpp.o
 libtensor_alloc_lib.a: CMakeFiles/tensor_alloc_lib.dir/src/trace_recorder.cpp.o
+libtensor_alloc_lib.a: CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.o
 libtensor_alloc_lib.a: CMakeFiles/tensor_alloc_lib.dir/src/api.cpp.o
 libtensor_alloc_lib.a: CMakeFiles/tensor_alloc_lib.dir/build.make
 libtensor_alloc_lib.a: CMakeFiles/tensor_alloc_lib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX static library libtensor_alloc_lib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX static library libtensor_alloc_lib.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/tensor_alloc_lib.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/tensor_alloc_lib.dir/link.txt --verbose=$(VERBOSE)
 

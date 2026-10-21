@@ -244,6 +244,19 @@ test_trace_recorder/fast:
 .PHONY : test_trace_recorder/fast
 
 #=============================================================================
+# Target rules for targets named test_learned_predictor
+
+# Build rule for target.
+test_learned_predictor: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_learned_predictor
+.PHONY : test_learned_predictor
+
+# fast build rule for target.
+test_learned_predictor/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_learned_predictor.dir/build.make CMakeFiles/test_learned_predictor.dir/build
+.PHONY : test_learned_predictor/fast
+
+#=============================================================================
 # Target rules for targets named allocator_microbench
 
 # Build rule for target.
@@ -425,6 +438,30 @@ src/cpu_backend.s: src/cpu_backend.cpp.s
 src/cpu_backend.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tensor_alloc_lib.dir/build.make CMakeFiles/tensor_alloc_lib.dir/src/cpu_backend.cpp.s
 .PHONY : src/cpu_backend.cpp.s
+
+src/learned_predictor.o: src/learned_predictor.cpp.o
+.PHONY : src/learned_predictor.o
+
+# target to build an object file
+src/learned_predictor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tensor_alloc_lib.dir/build.make CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.o
+.PHONY : src/learned_predictor.cpp.o
+
+src/learned_predictor.i: src/learned_predictor.cpp.i
+.PHONY : src/learned_predictor.i
+
+# target to preprocess a source file
+src/learned_predictor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tensor_alloc_lib.dir/build.make CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.i
+.PHONY : src/learned_predictor.cpp.i
+
+src/learned_predictor.s: src/learned_predictor.cpp.s
+.PHONY : src/learned_predictor.s
+
+# target to generate assembly for a file
+src/learned_predictor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tensor_alloc_lib.dir/build.make CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.s
+.PHONY : src/learned_predictor.cpp.s
 
 src/metrics.o: src/metrics.cpp.o
 .PHONY : src/metrics.o
@@ -618,6 +655,30 @@ tests/test_invalid_inputs.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_invalid_inputs.dir/build.make CMakeFiles/test_invalid_inputs.dir/tests/test_invalid_inputs.cpp.s
 .PHONY : tests/test_invalid_inputs.cpp.s
 
+tests/test_learned_predictor.o: tests/test_learned_predictor.cpp.o
+.PHONY : tests/test_learned_predictor.o
+
+# target to build an object file
+tests/test_learned_predictor.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_learned_predictor.dir/build.make CMakeFiles/test_learned_predictor.dir/tests/test_learned_predictor.cpp.o
+.PHONY : tests/test_learned_predictor.cpp.o
+
+tests/test_learned_predictor.i: tests/test_learned_predictor.cpp.i
+.PHONY : tests/test_learned_predictor.i
+
+# target to preprocess a source file
+tests/test_learned_predictor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_learned_predictor.dir/build.make CMakeFiles/test_learned_predictor.dir/tests/test_learned_predictor.cpp.i
+.PHONY : tests/test_learned_predictor.cpp.i
+
+tests/test_learned_predictor.s: tests/test_learned_predictor.cpp.s
+.PHONY : tests/test_learned_predictor.s
+
+# target to generate assembly for a file
+tests/test_learned_predictor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_learned_predictor.dir/build.make CMakeFiles/test_learned_predictor.dir/tests/test_learned_predictor.cpp.s
+.PHONY : tests/test_learned_predictor.cpp.s
+
 tests/test_multithreading.o: tests/test_multithreading.cpp.o
 .PHONY : tests/test_multithreading.o
 
@@ -754,6 +815,7 @@ help:
 	@echo "... test_alignment"
 	@echo "... test_api"
 	@echo "... test_invalid_inputs"
+	@echo "... test_learned_predictor"
 	@echo "... test_multithreading"
 	@echo "... test_reuse"
 	@echo "... test_size_class"
@@ -777,6 +839,9 @@ help:
 	@echo "... src/cpu_backend.o"
 	@echo "... src/cpu_backend.i"
 	@echo "... src/cpu_backend.s"
+	@echo "... src/learned_predictor.o"
+	@echo "... src/learned_predictor.i"
+	@echo "... src/learned_predictor.s"
 	@echo "... src/metrics.o"
 	@echo "... src/metrics.i"
 	@echo "... src/metrics.s"
@@ -801,6 +866,9 @@ help:
 	@echo "... tests/test_invalid_inputs.o"
 	@echo "... tests/test_invalid_inputs.i"
 	@echo "... tests/test_invalid_inputs.s"
+	@echo "... tests/test_learned_predictor.o"
+	@echo "... tests/test_learned_predictor.i"
+	@echo "... tests/test_learned_predictor.s"
 	@echo "... tests/test_multithreading.o"
 	@echo "... tests/test_multithreading.i"
 	@echo "... tests/test_multithreading.s"

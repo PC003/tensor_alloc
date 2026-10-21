@@ -43,6 +43,12 @@
 },
 {
   "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -g -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -fsanitize=address,undefined -fno-omit-frame-pointer -o CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/src/learned_predictor.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/src/learned_predictor.cpp",
+  "output": "CMakeFiles/tensor_alloc_lib.dir/src/learned_predictor.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan",
   "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -g -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -fsanitize=address,undefined -fno-omit-frame-pointer -o CMakeFiles/tensor_alloc_lib.dir/src/api.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/src/api.cpp",
   "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/src/api.cpp",
   "output": "CMakeFiles/tensor_alloc_lib.dir/src/api.cpp.o"
@@ -94,6 +100,12 @@
   "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -g -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -fsanitize=address,undefined -fno-omit-frame-pointer -o CMakeFiles/test_trace_recorder.dir/tests/test_trace_recorder.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_trace_recorder.cpp",
   "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_trace_recorder.cpp",
   "output": "CMakeFiles/test_trace_recorder.dir/tests/test_trace_recorder.cpp.o"
+},
+{
+  "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan",
+  "command": "/usr/bin/c++  -I/Users/piyushajitchavan/Desktop/tensor_alloc/include -I/Users/piyushajitchavan/Desktop/tensor_alloc/src -g -std=gnu++17 -arch arm64 -Wall -Wextra -Wpedantic -fsanitize=address,undefined -fno-omit-frame-pointer -o CMakeFiles/test_learned_predictor.dir/tests/test_learned_predictor.cpp.o -c /Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_learned_predictor.cpp",
+  "file": "/Users/piyushajitchavan/Desktop/tensor_alloc/tests/test_learned_predictor.cpp",
+  "output": "CMakeFiles/test_learned_predictor.dir/tests/test_learned_predictor.cpp.o"
 },
 {
   "directory": "/Users/piyushajitchavan/Desktop/tensor_alloc/build_asan",
